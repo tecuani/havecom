@@ -11,8 +11,21 @@ module.exports = {
 
     theme: {
         extend: {
+            backgroundImage: {
+                'taller-mecanico': "url('/img/havecom.logo.png')",
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+            },
+            spacing: {
+                '13': '3.25rem',
+                '15': '3.75rem',
+                '104': '26rem',
+                '112': '28rem',
+                '120': '30rem',
+                '128': '32rem',
+                '144': '36rem',
+                '192': '48rem',
             },
         },
     },
