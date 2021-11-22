@@ -23,6 +23,7 @@ Route::get('/servicios', [ServiceController::class, 'index'])->name('services.in
 Route::get('/servicios/{service:slug}', [ServiceController::class, 'show'])->name('services.show');
 
 Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
+Route::get('/productos/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

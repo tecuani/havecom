@@ -24,4 +24,25 @@ class ViewProductsTest extends TestCase
             ->assertViewHas('productCategories', fn ($productCategories) => $productCategories->count() === 2)
             ->assertSuccessful();
     }
+
+    /** @test */
+    public function guests_can_see_the_products_show()
+    {
+        $this->withoutExceptionHandling();
+        $product = Product::factory()->count(5)->create()->first();
+
+        $this->get("/productos/$product->slug")
+            ->assertViewIs('products.show')
+            ->assertSeeInOrder([
+                $product->image,
+                $product->title,
+                $product->cost/100,
+                'Cantidad',
+                'AGREGAR AL CARRITO',
+                $product->body,
+                'Tambien te puede gustar',
+            ])
+            ->assertViewHas('recomended', fn ($recomended) => $recomended->count() === 3)
+            ->assertSuccessful();
+    }
 }

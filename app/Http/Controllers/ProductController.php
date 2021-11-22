@@ -15,4 +15,11 @@ class ProductController extends Controller
 
         return view('products.index', compact('products', 'productCategories'));
     }
+
+    public function show(Product $product)
+    {
+        $recomended = Product::where('id', '!=', $product->id)->get()->take(3);
+
+        return view('products.show', compact('product', 'recomended'));
+    }
 }
