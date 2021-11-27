@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ViewProductsTest extends TestCase
@@ -28,7 +27,6 @@ class ViewProductsTest extends TestCase
     /** @test */
     public function guests_can_see_the_products_show()
     {
-        $this->withoutExceptionHandling();
         $product = Product::factory()->count(5)->create()->first();
 
         $this->get("/productos/$product->slug")

@@ -25,8 +25,10 @@ Route::get('/servicios/{service:slug}', [ServiceController::class, 'show'])->nam
 Route::get('/productos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/productos/{product}', [ProductController::class, 'show'])->name('products.show');
 
+Route::get('/consultoria', [StaticPageController::class, 'consultancy'])->name('pages.consultancy');
+Route::get('/aviso-de-privacidad', [StaticPageController::class, 'policy'])->name('pages.policy');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/aviso-de-privacidad', [StaticPageController::class, 'policy'])->name('pages.policy');

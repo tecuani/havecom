@@ -14,7 +14,7 @@
                     <a href="{{ route('products.index') }}" class="inline-block  px-4 hover:text-blue-700 no-underline">PRODUCTOS</a>
                 </li>
                 <li class="mr-3">
-                    <a href="/" class="inline-block px-4 hover:text-blue-700 no-underline">CONSULTORÍA</a>
+                    <a href="{{ route('pages.consultancy') }}" class="inline-block px-4 hover:text-blue-700 no-underline">CONSULTORÍA</a>
                 </li>
                 <li class="mr-3">
                     <a href="/" class="inline-block px-4 hover:text-blue-700 no-underline">ORDEN DE SERVICIO</a>

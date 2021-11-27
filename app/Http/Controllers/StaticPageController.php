@@ -10,4 +10,9 @@ class StaticPageController extends Controller
     {
         return view('pages.policy');
     }
+
+    public function consultancy()
+    {
+        return view('pages.consultancy');
+    }
 }
