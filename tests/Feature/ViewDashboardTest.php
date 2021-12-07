@@ -2,42 +2,45 @@
 
 namespace Tests\Feature;
 
+use App\Models\Role;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ViewHomeTest extends TestCase
+class ViewDashboardTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function guest_can_see_index_home()
+    public function admins_can_see_dashboard()
     {
-        $this->get('/')
-            ->assertStatus(200)
-            ->assertViewIs('home.index')
-            ->assertSeeInOrder([
-                'INICIO',
-                'PRODUCTOS',
-                'CONSULTORÍA',
-                'ORDEN DE SERVICIO',
-                'NOSOTROS',
-                'Bienvenido a Havecom México',
-                'El mejor servicio esta aquí',
-                'Agenda tu servicio',
-                'Nuestros Clientes Opinan',
-                'Conéctate con Nosotros',
-                'Regístrate',
-            ])
-            ->assertViewHas('services')
-            ->assertViewHas('opinions');
+        $admin = User::factory()
+            ->has(Role::factory()->admin())
+            ->create();;
+
+        $this->actingAs($admin)
+            ->get('/dashboard')
+            ->assertOk()
+            ->assertViewIs('admin.dashboard')
+            ->assertSee('Dashboard');
     }
 
     /** @test */
-    public function guests_cant_see_logged_home()
+    public function guest_cant_see_dashboard()
     {
-        $this->get('/')
-            ->assertDontSee('¡Hola ');
+        $this->get('/dashboard')
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function no_admin_users_cant_see_dashboard()
+    {
+        $noAdmin = User::factory()->create();
+
+        $this->actingAs($noAdmin)
+            ->get('/dashboard')
+            ->assertRedirect('/');
     }
 
     /** @test */
@@ -67,4 +70,5 @@ class ViewHomeTest extends TestCase
             ->assertViewHas('services')
             ->assertViewHas('opinions');
     }
+
 }

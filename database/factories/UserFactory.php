@@ -48,6 +48,20 @@ class UserFactory extends Factory
     }
 
     /**
+     * Indicate that the model's email address should be unverified.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'email_verified_at' => null,
+            ];
+        });
+    }
+
+    /**
      * Indicate that the user should have a personal team.
      *
      * @return $this

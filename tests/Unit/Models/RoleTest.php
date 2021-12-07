@@ -2,6 +2,15 @@
 
 namespace Tests\Unit\Models;
 
+use App\Models\Activation;
+use App\Models\Contest;
+use App\Models\Coupon;
+use App\Models\Experience;
+use App\Models\Reward;
+use App\Models\Role;
+use App\Models\Subscription;
+use App\Models\Ticket;
+use App\Models\Traits\Reservable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,23 +19,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class RoleTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function it_uses_traits()
     {
-        $article = new User();
+        $article = new Role();
 
         $traits = collect(class_uses($article))->flatten()->toArray();
 
         $this->assertEquals([
-            'Laravel\Sanctum\HasApiTokens',
             'Illuminate\Database\Eloquent\Factories\HasFactory',
-            'Laravel\Jetstream\HasProfilePhoto',
-            'Illuminate\Notifications\Notifiable',
-            'Laravel\Fortify\TwoFactorAuthenticatable',
+            'App\Models\Traits\Sluggable',
         ], $traits);
     }
 

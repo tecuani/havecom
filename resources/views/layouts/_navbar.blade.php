@@ -56,5 +56,34 @@
                 </li>
             </ul>
         </div>
+        <div>
+            @auth
+                <ul>
+                    <li>
+                        <h6>
+                            ¡Hola {{ auth()->user()->name }}!
+                        </h6>
+                    </li>
+                    <li>
+                        <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+                    </li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <input type="submit" value="Logout">
+                        </form>
+                    </li>
+                </ul>
+            @else
+                <ul>
+                    <li>
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                    </li>
+                </ul>
+            @endauth
+        </div>
     </div>
 </nav>
