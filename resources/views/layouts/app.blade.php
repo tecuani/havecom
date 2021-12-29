@@ -23,7 +23,7 @@
         <div class="font-sans text-gray-900 antialiased h-28">
         </div>
         <div class="font-sans antialiased">
-            @yield('content')
+            {{ $slot }}
         </div>
     </main>
     @include('layouts._footer')

@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
+<x-app-layout>
     <main class="grid bg-white">
         <div class="grid block place-self-center bg-indigo-900 text-white font-black w-full h-128">
             <div class="block place-self-center">
@@ -14,5 +11,4 @@
             </div>
         </div>
     </main>
-
-@endsection
+</x-app-layout>

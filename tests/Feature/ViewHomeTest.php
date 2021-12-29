@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,11 +12,11 @@ class ViewHomeTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_see_guest_home()
+    public function guest_can_see_index_home()
     {
         $this->get('/')
             ->assertStatus(200)
-            ->assertViewIs('home.guest')
+            ->assertViewIs('home.index')
             ->assertSeeInOrder([
                 'INICIO',
                 'PRODUCTOS',
@@ -34,7 +35,14 @@ class ViewHomeTest extends TestCase
     }
 
     /** @test */
-    public function can_see_6_service_cards()
+    public function guests_cant_see_logged_home()
+    {
+        $this->get('/')
+            ->assertDontSee('¡Hola ');
+    }
+
+    /** @test */
+    public function guests_can_see_6_service_cards()
     {
         $service = Service::factory()->times(7)->create()->first();
 
@@ -45,5 +53,30 @@ class ViewHomeTest extends TestCase
             ->assertSee($service->imagePath)
             ->assertSee($service->cost / 100)
             ->assertSee($service->workTime);
+    }
+
+    /** @test */
+    public function users_can_see_logged_home()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get('/')
+            ->assertStatus(200)
+            ->assertViewIs('home.logged')
+            ->assertSee('¡Hola '.$user->name.'!')
+            ->assertViewHas('services')
+            ->assertViewHas('opinions');
+    }
+
+    /** @test */
+    public function admins_can_see_the_dashboard()
+    {
+        $admin = User::factory()->state('administrator')->create();
+
+        $this->actingAs($admin)
+            ->get('/dashboard')
+            ->assertStatus(200)
+            ->assertViewIs('auth.dashboard');
     }
 }

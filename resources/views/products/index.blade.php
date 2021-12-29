@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
+<x-app-layout>
     <main class="bg-white">
         @include('products._header')
         <div class="bg-white mt-0 w-full">
@@ -33,5 +30,4 @@
             </div>
         </div>
     </main>
-
-@endsection
+</x-app-layout>

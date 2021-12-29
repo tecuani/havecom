@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <main class="grid bg-white">
         <div class="bg-white text-white mt-0 justify-self-center">
             <span class="block text-6xl text-center text-indigo-700">Agenda tu servicio</span>
@@ -47,5 +45,4 @@
             </div>
         </div>
     </main>
-
-@endsection
+</x-app-layout>

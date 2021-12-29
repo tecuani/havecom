@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,11 @@ class HomeController extends Controller
             'body' => 'sf gdf ga dfg adfg adf gad fga dfg ',
             'rating' => '4.7'],];
 
-        return view('home.guest', compact('services', 'opinions'));
+        if (! Auth::user()) {
+
+            return view('home.index', compact('services', 'opinions'));
+        }
+
+        return view('home.logged', compact('services', 'opinions'));
     }
 }

@@ -19,10 +19,19 @@ class ViewPagesTest extends TestCase
     /** @test */
     public function guests_can_see_the_consultancy_page()
     {
-        $this->withoutExceptionHandling();
         $this->get(route('pages.consultancy'))
             ->assertViewIs('pages.consultancy')
             ->assertSeeInOrder(['Consultoría HAVECOM', 'Control de Calidad', 'Mejora Continua'])
+            ->assertSuccessful();
+    }
+
+    /** @test */
+    public function guests_can_see_the_about_us_page()
+    {
+        $this->withoutExceptionHandling();
+        $this->get(route('pages.about_us'))
+            ->assertViewIs('pages.about_us')
+            ->assertSeeInOrder(['La calidad es nuestra prioridad', 'Unidades Móviles', 'Nosotros', 'Nuestro Servicio'])
             ->assertSuccessful();
     }
 }
