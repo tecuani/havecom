@@ -15,4 +15,9 @@ class StaticPageController extends Controller
     {
         return view('pages.consultancy');
     }
+
+    public function aboutUs()
+    {
+        return view('pages.about_us');
+    }
 }

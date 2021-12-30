@@ -27,6 +27,7 @@ Route::get('/productos/{product}', [ProductController::class, 'show'])->name('pr
 
 Route::get('/consultoria', [StaticPageController::class, 'consultancy'])->name('pages.consultancy');
 Route::get('/aviso-de-privacidad', [StaticPageController::class, 'policy'])->name('pages.policy');
+Route::get('/nosotros', [StaticPageController::class, 'aboutUs'])->name('pages.about_us');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
