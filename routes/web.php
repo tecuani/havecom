@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceController;
@@ -29,7 +30,5 @@ Route::get('/consultoria', [StaticPageController::class, 'consultancy'])->name('
 Route::get('/aviso-de-privacidad', [StaticPageController::class, 'policy'])->name('pages.policy');
 Route::get('/nosotros', [StaticPageController::class, 'aboutUs'])->name('pages.about_us');
 
-Route::middleware(['auth:sanctum', 'role:admin'])->get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

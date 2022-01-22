@@ -35,7 +35,7 @@ class RoleFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function admin()
+    public function administrator()
     {
         return $this->state(function (array $attributes) {
             return [

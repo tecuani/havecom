@@ -15,11 +15,10 @@ class ViewDashboardTest extends TestCase
     /** @test */
     public function admins_can_see_dashboard()
     {
-        $admin = User::factory()
-            ->has(Role::factory()->admin())
-            ->create();;
+        $user = User::factory()->has(Role::factory()->administrator())->create();
+        $this->assertTrue($user->isAdministrator());
 
-        $this->actingAs($admin)
+        $this->actingAs($user)
             ->get('/dashboard')
             ->assertOk()
             ->assertViewIs('admin.dashboard')
@@ -37,38 +36,10 @@ class ViewDashboardTest extends TestCase
     public function no_admin_users_cant_see_dashboard()
     {
         $noAdmin = User::factory()->create();
+        $this->assertFalse($noAdmin->isAdministrator());
 
         $this->actingAs($noAdmin)
             ->get('/dashboard')
-            ->assertRedirect('/');
+            ->assertForbidden();
     }
-
-    /** @test */
-    public function guests_can_see_6_service_cards()
-    {
-        $service = Service::factory()->times(7)->create()->first();
-
-        $this->get('/')
-            ->assertStatus(200)
-            ->assertViewHas('services', fn ($services) => $services->count() === 6)
-            ->assertSee($service->title)
-            ->assertSee($service->imagePath)
-            ->assertSee($service->cost / 100)
-            ->assertSee($service->workTime);
-    }
-
-    /** @test */
-    public function users_can_see_logged_home()
-    {
-        $user = User::factory()->create();
-
-        $this->actingAs($user)
-            ->get('/')
-            ->assertStatus(200)
-            ->assertViewIs('home.logged')
-            ->assertSee('¡Hola '.$user->name.'!')
-            ->assertViewHas('services')
-            ->assertViewHas('opinions');
-    }
-
 }

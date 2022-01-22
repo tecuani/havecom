@@ -66,7 +66,7 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isAdmin(): bool
+    public function isAdministrator(): bool
     {
         return $this->roles->contains('slug', Role::ADMIN);
     }

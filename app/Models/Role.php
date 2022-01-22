@@ -12,4 +12,11 @@ class Role extends Model
     use Sluggable;
 
     const ADMIN = 'administrator';
+
+    /**
+     * The fields to generate and store the slug.
+     *
+     * @var array
+     */
+    protected array $sluggable = ['build_from' => 'name'];
 }
